@@ -8,7 +8,7 @@ pipeline{
     }
     stage('Create Container') {
     steps {
-        sh 'docker inspect demo-container1 >/dev/null 2>&1 || docker create --name demo-container1 busybox'
+        sh 'docker inspect demo-container1 >/dev/null 2>&1 || docker create --name demo-container1 busybox sleep infinity'
       }
     }
 
@@ -19,7 +19,7 @@ pipeline{
     }
     stage("check container"){
       steps{
-        sh 'docker ps -a'
+        sh 'docker ps'
       }
     }
     stage("remove the container"){
