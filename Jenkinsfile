@@ -6,11 +6,12 @@ pipeline{
         echo "This is the checkout stage"
       }
     }
-    stage('create a container'){
-      steps{
-      sh 'docker create --name demo-container1 busybox'
+    stage('Create Container') {
+    steps {
+        sh 'docker inspect demo-container1 >/dev/null 2>&1 || docker create --name demo-container1 busybox'
       }
     }
+
     stage("run the container"){
       steps{
         sh 'docker start demo-container1'
