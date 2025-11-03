@@ -13,7 +13,7 @@ pipeline{
     }
     stage("run the container"){
       steps{
-        sh 'docker start demo-cont'
+        sh 'docker start demo-container1'
       }
     }
     stage("check container"){
