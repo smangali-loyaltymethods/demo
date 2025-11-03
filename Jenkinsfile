@@ -24,7 +24,10 @@ pipeline{
     }
     stage("remove the container"){
       steps{
-        sh 'docker rm demo-container1'
+        sh '''
+        docker stop demo-container1
+        docker rm demo-container1
+        '''
       }
     }
 
