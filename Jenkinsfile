@@ -26,7 +26,7 @@ pipeline {
 
         stage('Deploy to Staging') {
             when {
-                branch 'BranchA'
+                branch 'BranchB'
             }
             steps {
                 echo "Deploying to Staging!"
