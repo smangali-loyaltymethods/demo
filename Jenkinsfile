@@ -19,7 +19,7 @@ pipeline{
     }
     stage("check container"){
       steps{
-        sh 'docker ps'
+        sh 'docker ps -a'
       }
     }
     stage("remove the container"){
