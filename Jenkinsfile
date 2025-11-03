@@ -8,7 +8,7 @@ pipeline{
     }
     stage('create a container'){
       steps{
-      sh 'docker create --name demo-cont busybox'
+      sh 'docker create --name demo-container1 busybox'
       }
     }
     stage("run the container"){
@@ -23,7 +23,7 @@ pipeline{
     }
     stage("remove the container"){
       steps{
-        sh 'docker rm demo-cont'
+        sh 'docker rm demo-container1'
       }
     }
 
