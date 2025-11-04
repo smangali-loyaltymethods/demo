@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Build') {
             steps {
                 echo "Building branch: ${env.BRANCH_NAME}"
@@ -14,7 +15,7 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy to Production') {
             when {
                 branch 'master'
             }
@@ -31,6 +32,46 @@ pipeline {
             steps {
                 echo "Deploying to Staging!"
                 // Add staging deployment commands here
+            }
+        }
+
+        stage('Docker Operations for BranchA') {
+            when {
+                branch 'BranchA'
+            }
+            stages {
+                stage('Checkout') {
+                    steps {
+                        echo "This is the checkout stage"
+                    }
+                }
+
+                stage('Create Container') {
+                    steps {
+                        sh 'docker inspect demo-container1 >/dev/null 2>&1 || docker create --name demo-container1 busybox sleep infinity'
+                    }
+                }
+
+                stage('Run Container') {
+                    steps {
+                        sh 'docker start demo-container1'
+                    }
+                }
+
+                stage('Check Container') {
+                    steps {
+                        sh 'docker ps -a'
+                    }
+                }
+
+                stage('Remove Container') {
+                    steps {
+                        sh '''
+                            docker stop demo-container1 || true
+                            docker rm demo-container1 || true
+                        '''
+                    }
+                }
             }
         }
     }
